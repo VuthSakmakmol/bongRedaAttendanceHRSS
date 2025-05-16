@@ -1,59 +1,75 @@
 <template>
-  <div class="address-group d-flex flex-wrap gap-2">
-    <!-- Province -->
-    <v-select
-      :items="provinces"
-      :model-value="province"
-      @update:model-value="val => $emit('update:province', val)"
-      label="Province"
-      item-title="provinceNameKh"
-      item-value="provinceNameKh"
-      density="compact"
-      hide-details
-      outlined
-      class="w-25"
-    />
+  <v-card class="pa-4 mb-4" elevation="1" style="background-color: #fafafa;">
+    <div class="text-subtitle-1 font-weight-medium mb-2">Address Information</div>
 
-    <!-- District -->
-    <v-select
-      :items="districts"
-      :model-value="district"
-      @update:model-value="val => $emit('update:district', val)"
-      label="District"
-      item-title="districtNameKh"
-      item-value="districtNameKh"
-      density="compact"
-      hide-details
-      outlined
-      class="w-25"
-    />
+    <v-row dense class="address-row">
+      <v-col cols="12" md="6" lg="3" style="min-width: 220px;">
+        <v-autocomplete
+          class="w-100"
+          :items="provinces"
+          :model-value="province"
+          @update:model-value="val => $emit('update:province', val)"
+          label="Province"
+          placeholder="Select or type province"
+          item-title="provinceNameKh"
+          item-value="provinceNameKh"
+          clearable
+          outlined
+          density="comfortable"
+          hide-details
+        />
+      </v-col>
 
-    <!-- Commune -->
-    <v-select
-      :items="communes"
-      :model-value="commune"
-      @update:model-value="val => $emit('update:commune', val)"
-      label="Commune"
-      item-title="communeNameKh"
-      item-value="communeNameKh"
-      density="compact"
-      hide-details
-      outlined
-      class="w-25"
-    />
+      <v-col cols="12" md="6" lg="3" style="min-width: 220px;">
+        <v-autocomplete
+          class="w-100"
+          :items="districts"
+          :model-value="district"
+          @update:model-value="val => $emit('update:district', val)"
+          label="District"
+          placeholder="Select or type district"
+          item-title="districtNameKh"
+          item-value="districtNameKh"
+          clearable
+          outlined
+          density="comfortable"
+          hide-details
+        />
+      </v-col>
 
-    <!-- Village (manual input) -->
-    <v-text-field
-      :model-value="village"
-      @update:model-value="val => $emit('update:village', val)"
-      label="Village"
-      density="compact"
-      hide-details
-      outlined
-      class="w-25"
-    />
-  </div>
+      <v-col cols="12" md="6" lg="3" style="min-width: 220px;">
+        <v-autocomplete
+          class="w-100"
+          :items="communes"
+          :model-value="commune"
+          @update:model-value="val => $emit('update:commune', val)"
+          label="Commune"
+          placeholder="Select or type commune"
+          item-title="communeNameKh"
+          item-value="communeNameKh"
+          clearable
+          outlined
+          density="comfortable"
+          hide-details
+        />
+      </v-col>
+
+      <v-col cols="12" md="6" lg="3" style="min-width: 220px;">
+        <v-text-field
+          class="w-100"
+          :model-value="village"
+          @update:model-value="val => $emit('update:village', val)"
+          label="Village"
+          placeholder="Enter village"
+          outlined
+          density="comfortable"
+          hide-details
+        />
+      </v-col>
+    </v-row>
+  </v-card>
 </template>
+
 
 <script setup>
 import { ref, watch } from 'vue'
@@ -105,4 +121,5 @@ watch(() => props.district, (newVal) => {
 .w-25 {
   width: 24%;
 }
+
 </style>

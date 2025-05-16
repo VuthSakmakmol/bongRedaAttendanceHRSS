@@ -1,6 +1,15 @@
 <template>
   <v-app>
-    <Sidebar v-if="isLoggedIn" />
+    <v-app-bar app>
+      <v-btn icon @click="drawer = !drawer">
+        <v-icon>{{ drawer ? 'mdi-close' : 'mdi-menu' }}</v-icon>
+      </v-btn>
+      <v-toolbar-title>Attendance System</v-toolbar-title>
+    </v-app-bar>
+
+    <!-- ✅ Attach Sidebar here -->
+    <Sidebar v-model="drawer" />
+
     <v-main>
       <router-view />
     </v-main>
@@ -8,8 +17,10 @@
 </template>
 
 <script setup>
+import { ref, computed } from 'vue'
 import Sidebar from '@/components/Sidebar.vue'
-import { computed } from 'vue'
+
+const drawer = ref(false) // ✅ ADD THIS
 
 const isLoggedIn = computed(() => {
   return !!localStorage.getItem('user')

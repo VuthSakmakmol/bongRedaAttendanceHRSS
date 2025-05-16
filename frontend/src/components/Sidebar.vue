@@ -3,13 +3,13 @@
     v-model="drawer"
     app
     clipped
-    expand-on-hover
     width="250"
+    temporary
   >
     <!-- Logo / App Title -->
-    <v-list-item>
+    <!-- <v-list-item class="d-flex justify-space-between align-center">
       <v-list-item-title class="text-h6 font-weight-bold">Attendance</v-list-item-title>
-    </v-list-item>
+    </v-list-item> -->
 
     <v-divider />
 
@@ -44,20 +44,19 @@
   </v-navigation-drawer>
 </template>
 
+
 <script setup>
 import { ref, computed } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
 
-const drawer = ref(true)
+const drawer = ref(false) // Start closed
 const router = useRouter()
-const route = useRoute()
 
 const navItems = [
   { title: 'Dashboard', to: '/dashboard', icon: 'mdi-view-dashboard' },
   { title: 'Employee', to: '/employee', icon: 'mdi-account-group' }
 ]
 
-// Check login status (can use localStorage or token)
 const isLoggedIn = computed(() => {
   return !!localStorage.getItem('user')
 })
@@ -71,3 +70,9 @@ const handleAuth = () => {
   }
 }
 </script>
+
+<style scoped>
+.v-navigation-drawer {
+  transition: all 0.3s ease;
+}
+</style>

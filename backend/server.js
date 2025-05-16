@@ -24,6 +24,8 @@ app.use('/auth', require('./routes/auth'));
 app.use('/villages', require('./routes/village'));
 app.use('/employees', require('./routes/employee'));
 app.use('/locationkh', require('./routes/locationkh'));
+app.use('/api/departments', require('./routes/departmentRoutes'));
+
 
 
 
