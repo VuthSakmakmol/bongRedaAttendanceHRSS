@@ -8,6 +8,7 @@ const addressSchema = new mongoose.Schema({
 }, { _id: false });
 
 const employeeSchema = new mongoose.Schema({
+  employeeId: { type: String, required: true, unique: true },
   name: { type: String, required: true },
   email: String,
   position: String,
