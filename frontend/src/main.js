@@ -9,9 +9,18 @@ app.use(router)
 app.use(vuetify)
 app.mount('#app')
 
-//now i have employee list, ok let go to make attendance check up, example i have 10 employees, so i will import their daily information every morning to check ate the late, absent, or abondon (if abent count from 6days ).
-//it's refered to time check in 700, if more than 700 = abent, if less than or equal 700 = on time. 
-//make sure their list and new import is 
+
+
+// now i have employee list, ok let go to make attendance check up, example i have 10 employees, so i will import their daily information every morning to check ate the late, absent, or abondon (if abent count from 6days ).
+// it's refered to time check in 700, if more than 700 = abent, if less than or equal 700 = on time. 
+// make sure their list and new import is correct eachother ID, 
+// make condition:
+// if in the time check in column is =>
+// blank = forget scan
+// less than setting = ontime
+// more than setting = late
+// abent more than 6 days = abondon,
+
 
 
 // const exportToExcel = () => {
