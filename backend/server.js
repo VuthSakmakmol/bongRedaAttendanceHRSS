@@ -5,7 +5,8 @@ const cors = require('cors');
 
 dotenv.config();
 
-const app = express();
+const app = express();1
+const locationRoutes = require('./routes/locationRoutes');
 
 // Middleware
 app.use(cors());
@@ -21,9 +22,8 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/attendance'
 
 // Routes
 app.use('/auth', require('./routes/auth'));
-app.use('/villages', require('./routes/village'));
 app.use('/employees', require('./routes/employee'));
-app.use('/locationkh', require('./routes/locationkh'));
+app.use('/api/locations', locationRoutes);
 app.use('/api/departments', require('./routes/departmentRoutes'));
 
 

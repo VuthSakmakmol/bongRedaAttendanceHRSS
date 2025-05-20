@@ -10,45 +10,48 @@
       </div>
     </div>
 
+
     <v-expand-transition>
-      <v-form v-show="showForm" @submit.prevent="submitForm" class="form-grid">
-        <v-row class="full-span">
-          <v-col cols="2">        
+      <v-form v-show="showForm" @submit.prevent="submitForm">
+        <v-row dense>
+          <!-- Basic Info -->
+          <v-col cols="12" sm="6" md="4" lg="2">
             <v-text-field v-model="form.employeeId" label="Employee ID" variant="outlined" dense hide-details />
           </v-col>
-          <v-col cols="2">
+          <v-col cols="12" sm="6" md="4" lg="2">
             <v-text-field v-model="form.name" label="English Name" variant="outlined" dense hide-details />
           </v-col>
-          <v-col cols="2">
+          <v-col cols="12" sm="6" md="4" lg="2">
             <v-text-field v-model="form.khmerName" label="Khmer Name" variant="outlined" dense hide-details required />
           </v-col>
-          <v-col cols="2">
-          <v-select
-            v-model="form.gender"
-            :items="['Male', 'Female', 'Other']"
-            label="Gender"
-            variant="outlined" dense hide-details
-          />
+          <v-col cols="12" sm="6" md="4" lg="2">
+            <v-select v-model="form.gender" :items="['Male', 'Female', 'Other']" label="Gender" variant="outlined" dense hide-details />
           </v-col>
-          <v-col cols="2">
+
+          <!-- Contact and Job Info -->
+          <v-col cols="12" sm="6" md="4" lg="2">
             <v-text-field v-model="form.email" label="Email / Phone Number" variant="outlined" dense hide-details />
           </v-col>
-          <v-col cols="2">
+          <v-col cols="12" sm="6" md="4" lg="2">
             <v-autocomplete v-model="form.department" :items="departmentList" label="Department" variant="outlined" dense hide-details />
           </v-col>
-          <v-col cols="2">
+          <v-col cols="12" sm="6" md="4" lg="2">
             <v-autocomplete v-model="form.position" :items="filteredJobTitles" label="Position" variant="outlined" dense hide-details />
           </v-col>
-          <v-col cols="2">
-            <v-elect v-model="form.shift" :items="shiftOptions" label="Shift" variant="outlined" dense hide-details/>
+          <v-col cols="12" sm="6" md="4" lg="2">
+            <v-select v-model="form.shift" :items="shiftOptions" label="Shift" variant="outlined" dense hide-details />
           </v-col>
-          <v-col cols="2">
+
+          <!-- Dates -->
+          <v-col cols="12" sm="6" md="4" lg="2">
             <v-text-field v-model="form.dob" label="Date of Birth" type="date" variant="outlined" dense hide-details required />
           </v-col>
-          <v-col cols="2">
+          <v-col cols="12" sm="6" md="4" lg="2">
             <v-text-field v-model="form.joinDate" label="Join Date" type="date" variant="outlined" dense hide-details required />
           </v-col>
-          <v-col cols="2">   
+
+          <!-- Government IDs -->
+          <v-col cols="12" sm="6" md="4" lg="2">
             <v-text-field
               v-model="form.nssf"
               label="NSSF (15 digits)"
@@ -62,67 +65,82 @@
               ]"
             />
           </v-col>
-          <v-col cols="2">
+          <v-col cols="12" sm="6" md="4" lg="2">
             <v-text-field v-model="form.idCard" label="ID Card" variant="outlined" dense hide-details required />
           </v-col>
-          <v-col cols="2">
+          <v-col cols="12" sm="6" md="4" lg="2">
             <v-text-field v-model="form.idCardExpireDate" label="Id Card Expiry Date" type="date" variant="outlined" dense hide-details />
           </v-col>
-          <v-col cols="2">
+
+          <!-- Passport/Visa -->
+          <v-col cols="12" sm="6" md="4" lg="2">
             <v-text-field v-model="form.passport" label="Passport" variant="outlined" dense hide-details />
           </v-col>
-          <v-col cols="2">
+          <v-col cols="12" sm="6" md="4" lg="2">
             <v-text-field v-model="form.passportExpireDate" label="Passport Expiry Date" type="date" variant="outlined" dense hide-details />
           </v-col>
-          <v-col cols="2">
+          <v-col cols="12" sm="6" md="4" lg="2">
             <v-text-field v-model="form.visaExpireDate" label="Visa Expiry Date" type="date" variant="outlined" dense hide-details />
           </v-col>
-          <v-col cols="2">
+
+          <!-- Other -->
+          <v-col cols="12" sm="6" md="4" lg="2">
             <v-text-field v-model="form.healthCheck" label="Health Check" variant="outlined" dense hide-details required />
           </v-col>
-          <v-col cols="2">
+          <v-col cols="12" sm="6" md="4" lg="2">
             <v-text-field v-model="form.workingBook" label="Working Book" variant="outlined" dense hide-details />
           </v-col>
-        
+
+          <v-row dense>
+          <!-- Address Cards -->
+          <v-col cols="12" md="6">
+            <v-card variant="outlined" class="pa-4 h-100">
+              <div class="d-flex justify-space-between align-center mb-4">
+                <span class="text-subtitle-2 font-weight-bold">Place of Birth</span>
+              </div>
+              <v-row dense>
+                <v-col cols="6">
+                  <v-autocomplete v-model="form.placeOfBirth.province" :items="provinceOptions" item-title="name" item-value="name" label="Province" variant="outlined" dense hide-details clearable />
+                </v-col>
+                <v-col cols="6">
+                  <v-autocomplete v-model="form.placeOfBirth.district" :items="birthDistrictOptions" item-title="name" item-value="name" label="District" variant="outlined" dense hide-details clearable />
+                </v-col>
+                <v-col cols="6">
+                  <v-autocomplete v-model="form.placeOfBirth.commune" :items="birthCommuneOptions" item-title="name" item-value="name" label="Commune" variant="outlined" dense hide-details clearable />
+                </v-col>
+                <v-col cols="6">
+                  <v-text-field v-model="form.placeOfBirth.village" label="Village" variant="outlined" dense hide-details clearable />
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-col>
+
+          <v-col cols="12" md="6">
+            <v-card variant="outlined" class="pa-4 h-100">
+              <div class="d-flex justify-space-between align-center mb-4">
+                <span class="text-subtitle-2 font-weight-bold">Place of Living</span>
+                <v-switch v-model="form.sameAddress" label="Same as Birth" color="primary" inset hide-details />
+              </div>
+              <v-row dense>
+                <v-col cols="6">
+                  <v-autocomplete v-model="form.placeOfLiving.province" :items="provinceOptions" item-title="name" item-value="name" label="Province" :disabled="form.sameAddress" variant="outlined" dense hide-details clearable />
+                </v-col>
+                <v-col cols="6">
+                  <v-autocomplete v-model="form.placeOfLiving.district" :items="livingDistrictOptions" item-title="name" item-value="name" label="District" :disabled="form.sameAddress" variant="outlined" dense hide-details clearable />
+                </v-col>
+                <v-col cols="6">
+                  <v-autocomplete v-model="form.placeOfLiving.commune" :items="livingCommuneOptions" item-title="name" item-value="name" label="Commune" :disabled="form.sameAddress" variant="outlined" dense hide-details clearable />
+                </v-col>
+                <v-col cols="6">
+                  <v-text-field v-model="form.placeOfLiving.village" label="Village" :disabled="form.sameAddress" variant="outlined" dense hide-details clearable />
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-col>
         </v-row>
+      </v-row>
 
-
-        <div class="full-span d-flex flex-wrap gap-4">
-          <div class="flex-1">
-            <div class="text-subtitle-2 font-weight-bold mb-1">Place of Birth</div>
-            <AddressGroup
-              :province="form.placeOfBirth.province"
-              :district="form.placeOfBirth.district"
-              :commune="form.placeOfBirth.commune"
-              :village="form.placeOfBirth.village"
-              @update:province="val => form.placeOfBirth.province = val"
-              @update:district="val => form.placeOfBirth.district = val"
-              @update:commune="val => form.placeOfBirth.commune = val"
-              @update:village="val => form.placeOfBirth.village = val"
-            />
-          </div>
-
-          <div class="d-flex align-center justify-center" style="width: 120px;">
-            <v-switch v-model="form.sameAddress" label="Same" color="primary" inset />
-          </div>
-
-          <div class="flex-1">
-            <div class="text-subtitle-2 font-weight-bold mb-1">Place of Living</div>
-            <AddressGroup
-              :province="form.placeOfLiving.province"
-              :district="form.placeOfLiving.district"
-              :commune="form.placeOfLiving.commune"
-              :village="form.placeOfLiving.village"
-              :disabled="form.sameAddress"
-              @update:province="val => form.placeOfLiving.province = val"
-              @update:district="val => form.placeOfLiving.district = val"
-              @update:commune="val => form.placeOfLiving.commune = val"
-              @update:village="val => form.placeOfLiving.village = val"
-            />
-          </div>
-        </div>
-
-        <v-btn type="submit" color="success" class="full-span mt-4" block>
+        <v-btn type="submit" color="success" class="mt-4" block>
           {{ editMode ? 'Update' : 'Submit' }} Employee
         </v-btn>
       </v-form>
@@ -328,8 +346,15 @@ import { ref, computed, onMounted, watch } from 'vue'
 import axios from '@/utils/axios'
 import Swal from 'sweetalert2'
 import * as XLSX from 'xlsx'
-import AddressGroup from '@/components/AddressGroup.vue'
 import dayjs from 'dayjs'
+
+const provinceOptions = ref([])
+const birthDistrictOptions = ref([])
+const birthCommuneOptions = ref([])
+const livingDistrictOptions = ref([])
+const livingCommuneOptions = ref([])
+
+
 
 const formatDate = (val) => {
   return val ? dayjs(val).format('DD-MMM-YYYY') : ''
@@ -454,8 +479,47 @@ form.value = {
   sameAddress: true,
   placeOfBirth: { province: '', district: '', commune: '', village: '' },
   placeOfLiving: { province: '', district: '', commune: '', village: '' },
+
+  
            
 }
+
+
+// FETCH ALL PROVINCES ON LOAD
+const fetchProvinces = async () => {
+  try {
+    const res = await axios.get('/api/locations/provinces')
+    provinceOptions.value = res.data
+  } catch (err) {
+    console.error('Error fetching provinces:', err)
+  }
+}
+watch(() => form.value.placeOfBirth.province, async () => {
+  form.value.placeOfBirth.district = ''
+  form.value.placeOfBirth.commune = ''
+  await fetchBirthDistricts()
+}, { deep: true })
+
+watch(() => form.value.placeOfBirth.district, async () => {
+  form.value.placeOfBirth.commune = ''
+  await fetchBirthCommunes()
+}, { deep: true })
+
+watch(() => form.value.placeOfLiving.province, async () => {
+  if (!form.value.sameAddress) {
+    form.value.placeOfLiving.district = ''
+    form.value.placeOfLiving.commune = ''
+    await fetchLivingDistricts()
+  }
+})
+
+watch(() => form.value.placeOfLiving.district, async () => {
+  if (!form.value.sameAddress) {
+    form.value.placeOfLiving.commune = ''
+    await fetchLivingCommunes()
+  }
+})
+
 
 
 // Status
@@ -497,6 +561,10 @@ const saveRemark = async () => {
     Swal.fire('Error', 'Failed to save remark', 'error')
   }
 }
+
+
+
+
 
 const fetchEmployees = async () => {
   const res = await axios.get('/employees')
@@ -541,9 +609,12 @@ const reverseMap = (a) => ({
   commune: a?.communeNameKh || '',
   village: a?.villageNameKh || ''
 })
-
-// CRUD
 const submitForm = async () => {
+  // Sync address ONLY when submitting and sameAddress is true
+  if (form.value.sameAddress) {
+    form.value.placeOfLiving = { ...form.value.placeOfBirth }
+  }
+
   const payload = {
     employeeId: form.value.employeeId,
     name: form.value.name,
@@ -572,12 +643,14 @@ const submitForm = async () => {
   try {
     if (editMode.value) {
       await axios.put(`/employees/${editingId.value}`, payload)
+      Swal.fire('Updated!', 'Employee updated successfully', 'success')
     } else {
       await axios.post('/employees', payload)
+      Swal.fire('Created!', 'New employee added', 'success')
     }
 
     await fetchEmployees()
-    page.value = 1 // ✅ ensure new data is visible
+    page.value = 1
     editMode.value = false
     editingId.value = null
     toggleForm()
@@ -586,6 +659,7 @@ const submitForm = async () => {
     Swal.fire('Error', 'Failed to save', 'error')
   }
 }
+
 
 
 const resetForm = () => {
@@ -615,38 +689,116 @@ const resetForm = () => {
     remark: ''
   }
 }
+import { nextTick } from 'vue'
+const fetchBirthDistricts = async () => {
+  const province = form.value.placeOfBirth.province
+       console.log('▶️ Watcher triggered: placeOfBirth.province')
+  if (province) {
+    const res = await axios.get('/api/locations/districts', { params: { province } })
+    birthDistrictOptions.value = res.data
 
-
-
-const editEmployee = (e) => {
-  form.value = {
-  employeeId: e.employeeId,
-  name: e.name,
-  khmerName: e.name,
-  gender: e.gender,
-  dob: e.dob || '',
-  email: e.email,
-  department: e.department,
-  position: e.position,
-  shift: e.shift || 'Day Shift',
-  status: e.status || 'Working',
-  remark: e.remark || '',
-  joinDate: e.joinDate || '',
-  nssf: e.nssf || '',
-  idCard: e.idCard || '',
-  passport: e.passport || '',
-  visaExpireDate: e.visaExpireDate || '',
-  healthCheck: e.healthCheck || '',
-  workingBook: e.workingBook || '',
-  sameAddress: false,
-  placeOfBirth: reverseMap(e.placeOfBirth),
-  placeOfLiving: reverseMap(e.placeOfLiving),
+  }
 }
 
+const fetchBirthCommunes = async () => {
+  const { province, district } = form.value.placeOfBirth
+  if (province && district) {
+    const res = await axios.get('/api/locations/communes', { params: { province, district } })
+    birthCommuneOptions.value = res.data
+  }
+}
+
+const fetchLivingDistricts = async () => {
+  const province = form.value.placeOfLiving.province
+   console.log('▶️ Watcher triggered: placeOfLiving.province')
+  if (province) {
+    const res = await axios.get('/api/locations/districts', { params: { province } })
+    livingDistrictOptions.value = res.data
+  }
+}
+
+const fetchLivingCommunes = async () => {
+  const { province, district } = form.value.placeOfLiving
+  if (province && district) {
+    const res = await axios.get('/api/locations/communes', { params: { province, district } })
+    livingCommuneOptions.value = res.data
+  }
+}
+
+
+const editEmployee = async (e) => {
+  // STEP 1: Force sameAddress false FIRST
+  form.value.sameAddress = false
+
+  // STEP 2: Assign values
+  form.value = {
+    employeeId: e.employeeId,
+    name: e.name,
+    khmerName: e.khmerName,
+    gender: e.gender,
+    dob: e.dob || '',
+    email: e.email,
+    department: e.department,
+    position: e.position,
+    shift: e.shift || 'Day Shift',
+    status: e.status || 'Working',
+    remark: e.remark || '',
+    joinDate: e.joinDate || '',
+    nssf: e.nssf || '',
+    idCard: e.idCard || '',
+    idCardExpireDate: e.idCardExpireDate || '',
+    passport: e.passport || '',
+    passportExpireDate: e.passportExpireDate || '',
+    visaExpireDate: e.visaExpireDate || '',
+    healthCheck: e.healthCheck || '',
+    workingBook: e.workingBook || '',
+    sameAddress: false, // TEMPORARILY false
+    placeOfBirth: {
+      province: e.placeOfBirth?.provinceNameKh || '',
+      district: e.placeOfBirth?.districtNameKh || '',
+      commune: e.placeOfBirth?.communeNameKh || '',
+      village: e.placeOfBirth?.villageNameKh || ''
+    },
+    placeOfLiving: {
+      province: e.placeOfLiving?.provinceNameKh || '',
+      district: e.placeOfLiving?.districtNameKh || '',
+      commune: e.placeOfLiving?.communeNameKh || '',
+      village: e.placeOfLiving?.villageNameKh || ''
+    }
+  }
+
+  // STEP 3: Wait for reactivity
+  await nextTick()
+
+  // STEP 4: Fetch birth
+  await fetchBirthDistricts()
+  await fetchBirthCommunes()
+
+  // STEP 5: Fetch living
+  await fetchLivingDistricts()
+  await fetchLivingCommunes()
+
+  // STEP 6: NOW enable sameAddress if values match
+  const isSame =
+    JSON.stringify(form.value.placeOfBirth) === JSON.stringify(form.value.placeOfLiving)
+
+  if (isSame) {
+    form.value.sameAddress = true
+  }
+
+  
+
+  // STEP 7: Setup edit mode
   editingId.value = e._id
   showForm.value = true
   editMode.value = true
+
+  await nextTick()
+  const formEl = document.querySelector('.form-grid')
+  if (formEl) formEl.scrollIntoView({ behavior: 'smooth' })
 }
+
+
 const deleteEmployee = async (id) => {
   if (await Swal.fire({ title: 'Confirm delete?', showCancelButton: true }).then(r => r.isConfirmed)) {
     await axios.delete(`/employees/${id}`)
@@ -753,6 +905,7 @@ const toggleSelectAll = () => {
 onMounted(() => {
   fetchEmployees()
   fetchDepartments()
+  fetchProvinces()
 })
 </script>
 
@@ -840,6 +993,15 @@ body {
   z-index: 10;
   border-top: 1px solid #e0e0e0;
   padding-top: 12px;
+}
+
+@media (max-width: 600px) {
+  .form-grid {
+    font-size: 0.9rem;
+  }
+  .v-card {
+    padding: 8px !important;
+  }
 }
 
 </style>
