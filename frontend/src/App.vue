@@ -18,7 +18,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import Sidebar from '@/components/Sidebar.vue'
+import Sidebar from '@/layouts/AppSidebar.vue'
 
 const drawer = ref(false) // ✅ ADD THIS
 

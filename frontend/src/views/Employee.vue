@@ -864,11 +864,11 @@ const exportToExcel = () => {
   ]
 
   const headerRow2 = [
-    'ID', 'Name', 'Khmer Name', 'Gender', 'Date of Birth', 'Email', 'Department', 'Position',
+    'Employee ID', 'English Name', 'Khmer Name', 'Gender', 'Date of Birth', 'Email / Phone Number', 'Department', 'Position',
     'Shift', 'Status', 'Remark', 'Join Date', 'NSSF', 'ID Card', 'Passport', 'Visa Expiry Date',
     'Health Check', 'Working Book',
-    'ខេត្ត', 'ស្រុក', 'សង្កាត់', 'ភូមិ',
-    'ខេត្ត', 'ស្រុក', 'សង្កាត់', 'ភូមិ'
+    'Province', 'District', 'Commune', 'Village',
+    'Province', 'District', 'Commune', 'Village'
   ]
 
   const ws = XLSX.utils.aoa_to_sheet([headerRow1, headerRow2, ...rows])

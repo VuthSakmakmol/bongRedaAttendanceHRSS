@@ -10,9 +10,20 @@ declare module 'vue' {
   export interface GlobalComponents {
     AddressGroup: typeof import('./src/components/AddressGroup.vue')['default']
     AppFooter: typeof import('./src/components/AppFooter.vue')['default']
+    AttendanceTable: typeof import('./src/components/AttendanceTable.vue')['default']
+    AttendanceUpload: typeof import('./src/components/AttendanceUpload.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    Sidebar: typeof import('./src/components/Sidebar.vue')['default']
+    Sidebar: typeof import('./src/layouts/AppSidebar.vue')['default']
+    Step1CoreIdentity: typeof import('./src/components/EmployeeSteps/Step1CoreIdentity.vue')['default']
+    Step2DetailIdentity: typeof import('./src/components/EmployeeSteps/Step2DetailIdentity.vue')['default']
+    Step2Documents: typeof import('./src/components/EmployeeSteps/Step2DetailIdentity.vue')['default']
+    Step3Personal: typeof import('./src/components/EmployeeSteps/Step3Responsibility.vue')['default']
+    Step3Responsibility: typeof import('./src/components/EmployeeSteps/Step3Responsibility.vue')['default']
+    Step4Document: typeof import('./src/components/EmployeeSteps/Step4Document.vue')['default']
+    Step4Job: typeof import('./src/components/EmployeeSteps/Step4Job.vue')['default']
+    Step5Factory: typeof import('./src/components/EmployeeSteps/Step5Skills.vue')['default']
+    Step5Skills: typeof import('./src/components/EmployeeSteps/Step5Skills.vue')['default']
   }
 }

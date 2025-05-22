@@ -1,44 +1,70 @@
-const Employee = require('../models/Employee');
+const Employee = require('../models/Employee')
 
-// Create employee
+// Create new employee (Step 1)
 exports.createEmployee = async (req, res) => {
   try {
-    const employee = new Employee(req.body);
-    const saved = await employee.save();
-    res.status(201).json(saved);
+    console.log('[Creating Employee]', req.body) // log incoming data
+    const newEmp = await Employee.create(req.body)
+    res.status(201).json(newEmp)
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    console.error('[CREATE ERROR]', err)
+    res.status(500).json({ error: err.message })
   }
-};
+}
+
 
 // Get all employees
-exports.getEmployees = async (req, res) => {
+exports.getAllEmployees = async (req, res) => {
   try {
-    const employees = await Employee.find();
-    res.json(employees);
+    const employees = await Employee.find().sort({ createdAt: -1 })
+    res.json(employees)
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ error: 'Failed to fetch employees' })
   }
-};
+}
 
-// Update
+// Get single employee by ID (for resume/edit)
+exports.getEmployeeById = async (req, res) => {
+  try {
+    const employee = await Employee.findById(req.params.id)
+    if (!employee) return res.status(404).json({ error: 'Employee not found' })
+    res.json(employee)
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch employee' })
+  }
+}
+
+// Update employee (step-by-step or full)
 exports.updateEmployee = async (req, res) => {
   try {
-    const updated = await Employee.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!updated) return res.status(404).json({ message: 'Not found' });
-    res.json(updated);
+    const updated = await Employee.findByIdAndUpdate(
+      req.params.id,
+      { $set: req.body },
+      { new: true }
+    )
+    res.json(updated)
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    res.status(500).json({ error: 'Failed to update employee', details: err })
   }
-};
+}
 
-// Delete
+// Delete single employee
 exports.deleteEmployee = async (req, res) => {
   try {
-    const removed = await Employee.findByIdAndDelete(req.params.id);
-    if (!removed) return res.status(404).json({ message: 'Not found' });
-    res.json({ message: 'Employee deleted' });
+    await Employee.findByIdAndDelete(req.params.id)
+    res.json({ message: 'Employee deleted' })
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ error: 'Failed to delete employee' })
   }
-};
+}
+
+// Delete multiple employees
+exports.deleteMultipleEmployees = async (req, res) => {
+  try {
+    const { ids } = req.body
+    await Employee.deleteMany({ _id: { $in: ids } })
+    res.json({ message: 'Selected employees deleted' })
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to delete multiple employees' })
+  }
+}

@@ -1,33 +1,46 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Login from '@/views/Login.vue'
-import Dashboard from '@/views/Dashboard.vue'
-import Employee from '@/views/Employee.vue' // ✅ NEW
 
 const routes = [
-  { path: '/login', component: Login },
-  { path: '/dashboard', component: Dashboard, meta: { requiresAuth: true } },
-  { path: '/employee', component: Employee, meta: { requiresAuth: true } }, // ✅ NEW
-  { path: '/', redirect: '/login' }
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/Login.vue')
+  },
+  {
+    path: '/',
+    redirect: '/dashboard'
+  },
+  {
+    path: '/',
+    component: () => import('@/layouts/MainLayout.vue'), // layout with sidebar
+    children: [
+      {
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: () => import('@/views/Dashboard.vue')
+      },
+      {
+        path: 'employee/list',
+        name: 'EmployeeList',
+        component: () => import('@/views/EmployeeList.vue')
+      },
+      {
+        path: 'employee/register',
+        name: 'EmployeeRegister',
+        component: () => import('@/views/EmployeeRegister.vue')
+      },
+      {
+        path: 'attendance',
+        name: 'Attendance',
+        component: () => import('@/views/Attendance.vue')
+      }
+    ]
+  }
 ]
 
 const router = createRouter({
   history: createWebHistory(),
   routes
-})
-
-router.beforeEach((to, from, next) => {
-  let user = null
-  try {
-    user = JSON.parse(localStorage.getItem('user') || 'null')
-  } catch {
-    localStorage.removeItem('user')
-  }
-
-  if (to.meta.requiresAuth && !user) {
-    next('/login')
-  } else {
-    next()
-  }
 })
 
 export default router
